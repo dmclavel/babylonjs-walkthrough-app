@@ -6,9 +6,15 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
+// import { buildFromPlan } from './utils/house-builder/buildFromPlan';
+import { createSomething, createChair, createStar } from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
+
+
+const earcut = require('earcut');
+window.earcut = earcut;
 
 // Get the canvas element from the DOM.
 const canvas = document.getElementById("renderCanvas");
@@ -37,11 +43,17 @@ light.intensity = 0.7;
 // Create a grid material
 let material = new GridMaterial("grid", scene);
 
+createSomething(scene);
+createStar(scene, 2, 2, material);
+createStar(scene, 0, 2, material);
+createStar(scene, 4, 2, material);
+createChair(scene);
+
 // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
 let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);
 
 // Move the sphere upward 1/2 its height
-sphere.position.y = 2;
+sphere.position.y = -5;
 
 // Affect a material
 sphere.material = material;
@@ -50,7 +62,7 @@ sphere.material = material;
 let ground = Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
 // Affect a material
-ground.material = material;
+// ground.material = material;
 
 // Render every frame
 engine.runRenderLoop(() => {
