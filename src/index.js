@@ -6,15 +6,12 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
-// import { buildFromPlan } from './utils/house-builder/buildFromPlan';
-
-import { createSomething, createChair, createStar, createMonitor,createTable, createCPU} from './utils/create-objects/createSomething';
+import { StandardMaterial, Texture } from "@babylonjs/core";
+import { createSomething, createChair, createStar, createTable, createBoard } from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
-
-
-const earcut = require('earcut');
+import earcut from 'earcut';
 window.earcut = earcut;
 
 // Get the canvas element from the DOM.
@@ -58,6 +55,17 @@ createCPU(scene);
 // showAxis(1);
 
 // createSomething(scene);
+
+createStar(scene, 2, 2, 1, material);
+createStar(scene, 0, 2, 1, material);
+createStar(scene, 4, 2, 1, material);
+
+material = new StandardMaterial("wooden", scene);
+material.diffuseTexture = new Texture("./assets/wood-texture.jpg", scene);
+
+createChair(scene, 2, 0, 1, material);
+createTable(scene, 0, 0, 1, material);
+createBoard(scene);
 
 // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
 // let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);

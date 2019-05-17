@@ -76,7 +76,7 @@ export const createChair = (scene, positionX, positionY, positionZ, material) =>
     mergedChairMeshes.material = material;
 };
 
-export const createMonitor = (scene) => {
+export const createMonitor = (scene, positionX, positionY, positionZ) => {
 
     const  corners = [ 
         new Vector3(4, 6, 4),
@@ -111,7 +111,10 @@ export const createMonitor = (scene) => {
     
     // console.log(__metadata.name)
     var screen = MeshBuilder.CreateBox("screen",{width: 8,height:0.2,depth:12, faceUV: faceUV}, scene);
-    screen.position.y -=0.5;
+    screen.position.y -=0.5+positionY;
+    screen.position.z =positionZ;
+    screen.position.x =positionX;
+
     screen.material = mat;
     var back = MeshBuilder.CreateBox("back",{width: 7,height:0.7,depth:8}, scene)
     back.position.y -= 0.9;
