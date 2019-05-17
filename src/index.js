@@ -7,7 +7,8 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
 // import { buildFromPlan } from './utils/house-builder/buildFromPlan';
-import { createSomething, createChair, createStar, createMonitor } from './utils/create-objects/createSomething';
+
+import { createSomething, createChair, createStar, createMonitor,createTable, createCPU} from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
@@ -43,13 +44,20 @@ light.intensity = 0.9;
 // Create a grid material
 let material = new GridMaterial("grid", scene);
 
-createMonitor(scene);
 
-// createStar(scene, 2, 2, material);
-// createStar(scene, 0, 2, material);
-// createStar(scene, 4, 2, material);
-// createChair(scene);
+createMonitor(scene);
+createCPU(scene);
+
+// createStar(scene, 2, 2, 1, material);
+// createStar(scene, 0, 2, 1, material);
+// createStar(scene, 4, 2, 1, material);
+// createChair(scene, 2, 0, 1, material);
+// createTable(scene, 0, 0, 1, material);
+
+
 // showAxis(1);
+
+// createSomething(scene);
 
 // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
 // let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);

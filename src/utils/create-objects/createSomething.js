@@ -1,3 +1,4 @@
+
 import { Vector2, PolygonMeshBuilder, Path2, Color3, Mesh, MeshBuilder, Vector3, DynamicTexture, StandardMaterial, Texture, Vector4, Color4 } from '@babylonjs/core';
 import { __metadata } from 'tslib';
 
@@ -40,29 +41,39 @@ export const createSomething = ( scene ) => {
     polygon2.position.y = -4;
 };
 
-export const createStar = (scene, positionX, positionY, material) => {
+export const createStar = (scene, positionX, positionY, positionZ, material) => {
     const knot = Mesh.CreateTorusKnot("mesh", 0.25, 0.1, 10, 10, 2, 5, scene);
 
     knot.position.x = positionX;
     knot.position.y = positionY;
+    knot.position.z = positionZ;
     knot.material = material;
 };
 
-export const createChair = (scene, positionX, positionY, material) => {
-    const chairFoot1 = MeshBuilder.CreateCylinder("foot1", { diameter: 0.25, height: 1.5 }, scene);
-    const chairFoot2 = MeshBuilder.CreateCylinder("foot2", { diameter: 0.25, height: 1.5 }, scene);
-    const chairFoot3 = MeshBuilder.CreateCylinder("foot3", { diameter: 0.25, height: 1.5 }, scene);
-    const chairFoot4 = MeshBuilder.CreateCylinder("foot4", { diameter: 0.25, height: 1.5 }, scene);
+export const createChair = (scene, positionX, positionY, positionZ, material) => {
+    const chairFoot1 = MeshBuilder.CreateCylinder("foot1", { diameter: 0.25, height: 0.5 }, scene);
+    const chairFoot2 = MeshBuilder.CreateCylinder("foot2", { diameter: 0.25, height: 0.5 }, scene);
+    const chairFoot3 = MeshBuilder.CreateCylinder("foot3", { diameter: 0.25, height: 0.5 }, scene);
+    const chairFoot4 = MeshBuilder.CreateCylinder("foot4", { diameter: 0.25, height: 0.5 }, scene);
+    const wood = MeshBuilder.CreateBox("", {height: 0.05, width: 1.15, depth: 2, updatable: true, sideOrientation: Mesh.DOUBLESIDE});
 
     chairFoot1.position.x = -0.2;
-    chairFoot1.position.y = 0;
     chairFoot1.position.z = -0.5;
     chairFoot2.position.x = -0.2;
-    chairFoot2.position.y = 0.4;
-    chairFoot3.position.x = 0;
-    chairFoot3.position.y = 0;
-    chairFoot4.position.x = 0.6;
-    chairFoot4.position.y = 0.4;
+    chairFoot2.position.z = 0.5;
+    chairFoot3.position.x = 0.5;
+    chairFoot3.position.z = -0.5;
+    chairFoot4.position.x = 0.5;
+    chairFoot4.position.z = 0.5;
+    wood.position.x = 0.15;
+    wood.position.y = 0.4;
+    wood.position.z = 0.1;
+
+    const mergedChairMeshes = Mesh.MergeMeshes([chairFoot1, chairFoot2, chairFoot3, chairFoot4, wood]);
+    mergedChairMeshes.position.x = positionX;
+    mergedChairMeshes.position.y = positionY;
+    mergedChairMeshes.position.z = positionZ;
+    mergedChairMeshes.material = material;
 };
 
 export const createMonitor = (scene) => {
@@ -93,8 +104,10 @@ export const createMonitor = (scene) => {
     mat.diffuseTexture = texture;
 
     var faceUV = new Array(6);
+    for (let i=0;i<6;i++){
+        faceUV[1] = new Color4(0,0,0,0);
 
-    faceUV[1] = new Color4(0,0,0,0);
+    }
     
     // console.log(__metadata.name)
     var screen = MeshBuilder.CreateBox("screen",{width: 8,height:0.2,depth:12, faceUV: faceUV}, scene);
@@ -112,42 +125,50 @@ export const createMonitor = (scene) => {
     base.material = mat2;
 };
 
+export const createCPU = (scene) => {
+    var mat = new StandardMaterial("mat",scene);
+    var texture = new Texture("../images/original1.png", scene);
+    mat.diffuseTexture = texture;
+    // mat.diffuseColor = new Color3(0,0,0);
 
+    var faceUV = new Array(6);
+    for (let i=0;i<6;i++){
+        faceUV[1] = new Color4(0,0,0,0);
 
-// show axis
-export const showAxis = (size) => {
-    var makeTextPlane = function(text, color, size) {
-        var dynamicTexture = new DynamicTexture("DynamicTexture", 50, scene, true);
-        dynamicTexture.hasAlpha = true;
-        dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color , "transparent", true);
-        var plane = new Mesh.CreatePlane("TextPlane", size, scene, true);
-        plane.material = new StandardMaterial("TextPlaneMaterial", scene);
-        plane.material.backFaceCulling = false;
-        plane.material.specularColor = new Color3(0, 0, 0);
-        plane.material.diffuseTexture = dynamicTexture;
-        return plane;
-    };
-
-    var axisX = Mesh.CreateLines("axisX", [ 
-        new Vector3.Zero(), new Vector3(size, 0, 0), new Vector3(size * 0.95, 0.05 * size, 0), 
-        new Vector3(size, 0, 0), new Vector3(size * 0.95, -0.05 * size, 0)
-    ], scene);
-    axisX.color = new Color3(1, 0, 0);
-    var xChar = makeTextPlane("X", "red", size / 10);
-    xChar.position = new Vector3(0.9 * size, -0.05 * size, 0);
-    var axisY = Mesh.CreateLines("axisY", [
-    new Vector3.Zero(), new Vector3(0, size, 0), new Vector3( -0.05 * size, size * 0.95, 0), 
-    new Vector3(0, size, 0), new Vector3( 0.05 * size, size * 0.95, 0)
-    ], scene);
-    axisY.color = new Color3(0, 1, 0);
-    var yChar = makeTextPlane("Y", "green", size / 10);
-    yChar.position = new Vector3(0, 0.9 * size, -0.05 * size);
-    var axisZ = Mesh.CreateLines("axisZ", [
-    new Vector3.Zero(), new Vector3(0, 0, size), new Vector3( 0 , -0.05 * size, size * 0.95),
-    new Vector3(0, 0, size), new Vector3( 0, 0.05 * size, size * 0.95)
-    ], scene);
-    axisZ.color = new Color3(0, 0, 1);
-    var zChar = makeTextPlane("Z", "blue", size / 10);
-    zChar.position = new Vector3(0, 0.05 * size, 0.9 * size);
-
+    }
+    faceUV[0] = new Vector4(0,0,1,1);
+    var cpu = MeshBuilder.CreateBox("cpu",{
+        height: 5,
+        width:2,
+        depth:6,
+        faceUV: faceUV
+    }, scene);
+    cpu.material = mat;
 };
+
+export const createTable = (scene, positionX, positionY, positionZ, material) => {
+    const tableFoot1 = MeshBuilder.CreateCylinder("foot1", { diameter: 0.25, height: 0.5 }, scene);
+    const tableFoot2 = MeshBuilder.CreateCylinder("foot2", { diameter: 0.25, height: 0.5 }, scene);
+    const tableFoot3 = MeshBuilder.CreateCylinder("foot3", { diameter: 0.25, height: 0.5 }, scene);
+    const tableFoot4 = MeshBuilder.CreateCylinder("foot4", { diameter: 0.25, height: 0.5 }, scene);
+    const wood = MeshBuilder.CreateBox("", {height: 0.05, width: 2, depth: 2, updatable: true, sideOrientation: Mesh.DOUBLESIDE});
+
+    tableFoot1.position.x = -0.75;
+    tableFoot1.position.z = -0.5;
+    tableFoot2.position.x = -0.75;
+    tableFoot2.position.z = 0.5;
+    tableFoot3.position.x = 0.75;
+    tableFoot3.position.z = -0.5;
+    tableFoot4.position.x = 0.75;
+    tableFoot4.position.z = 0.5;
+    wood.position.x = 0;
+    wood.position.y = 0.4;
+    wood.position.z = 0.1;
+
+    const mergedChairMeshes = Mesh.MergeMeshes([tableFoot1, tableFoot2, tableFoot3, tableFoot4, wood]);
+    mergedChairMeshes.position.x = positionX;
+    mergedChairMeshes.position.y = positionY;
+    mergedChairMeshes.position.z = positionZ;
+    mergedChairMeshes.material = material;
+};
+
