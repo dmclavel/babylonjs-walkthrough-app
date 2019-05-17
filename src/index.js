@@ -7,7 +7,7 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
 // import { buildFromPlan } from './utils/house-builder/buildFromPlan';
-import { createSomething, createChair, createStar } from './utils/create-objects/createSomething';
+import { createSomething, createChair, createStar, createMonitor } from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
@@ -26,7 +26,7 @@ const engine = new Engine(canvas);
 let scene = new Scene(engine);
 
 // This creates and positions a free camera (non-mesh)
-let camera = new FreeCamera("camera1", new Vector3(0, 5, -10), scene);
+let camera = new FreeCamera("camera1", new Vector3(10, 10, 0), scene);
 
 // This targets the camera to scene origin
 camera.setTarget(Vector3.Zero());
@@ -38,28 +38,30 @@ camera.attachControl(canvas, true);
 let light = new HemisphericLight("light1", new Vector3(0, 1, 0), scene);
 
 // Default intensity is 1. Let's dim the light a small amount
-light.intensity = 0.7;
+light.intensity = 0.9;
 
 // Create a grid material
 let material = new GridMaterial("grid", scene);
 
-createSomething(scene);
-createStar(scene, 2, 2, material);
-createStar(scene, 0, 2, material);
-createStar(scene, 4, 2, material);
-createChair(scene);
+createMonitor(scene);
+
+// createStar(scene, 2, 2, material);
+// createStar(scene, 0, 2, material);
+// createStar(scene, 4, 2, material);
+// createChair(scene);
+// showAxis(1);
 
 // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);
+// let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);
 
 // Move the sphere upward 1/2 its height
-sphere.position.y = -5;
+// sphere.position.y = -5;
 
 // Affect a material
-sphere.material = material;
+// sphere.material = material;
 
 // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-let ground = Mesh.CreateGround("ground1", 6, 6, 2, scene);
+// let ground = Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
 // Affect a material
 // ground.material = material;
