@@ -1,6 +1,5 @@
 
 import { Vector2, PolygonMeshBuilder, Path2, Color3, Mesh, MeshBuilder, Vector3, DynamicTexture, StandardMaterial, Texture, Vector4, Color4 } from '@babylonjs/core';
-import { __metadata } from 'tslib';
 
 export const createSomething = ( scene ) => {
     const  corners = [ new Vector2(4, -4),

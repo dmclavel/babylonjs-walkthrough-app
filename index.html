@@ -48,7 +48,6 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             position: fixed;
             left: 10%;
             bottom: 10%;
@@ -66,15 +65,14 @@
         .modal-block__headings {
             font-size: 1.75rem;
             letter-spacing: 0.2rem;
-            margin: 2rem 0;
             font-weight: bold;
+            margin: 1rem 0;
         }
 
         .modal-block__normal-text {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             letter-spacing: 0.1em;
             margin: 0.5rem 0;
-            font-weight: bold;
         }
 
         .backdrop-block {
@@ -88,8 +86,22 @@
 
         .img-class-arrow {
             width: 150px;
-            height: 125px;
+            height: 100px;
             margin: 1rem 0;
+        }
+
+        .explanation-block {
+            display: inherit;
+            flex-direction: column;
+            background: linear-gradient(to bottom right, cadetblue, rgba(0,0,0,0.75));
+            border: 5px solid #ccc;
+            width: 75%;
+            height: 22rem;
+            color: #fff;
+            font-size: 1.1rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -99,11 +111,23 @@
 <div class="modal-block">
     <span class="modal-block__headings"> Physical Science Building UPLB Walk Through </span>
     <img src="src/assets/keys.png" alt="img" class="img-class-arrow" />
-    <span class="modal-block__normal-text"> Arrow Up - Up </span>
-    <span class="modal-block__normal-text"> Arrow Down - Down </span>
-    <span class="modal-block__normal-text"> Arrow Left - Left </span>
-    <span class="modal-block__normal-text"> Arrow Right - Right </span>
+    <span class="modal-block__normal-text"> Arrow Up - Move Forward </span>
+    <span class="modal-block__normal-text"> Arrow Down - Move Backward </span>
+    <span class="modal-block__normal-text"> Arrow Left - Move to the Left </span>
+    <span class="modal-block__normal-text"> Arrow Right - Move to the Right </span>
+    <div class="explanation-block">
+        <span style="width: 100%; text-align: center; font-size: 1.35rem;"> This is a project for CMSC 161 - Interactive Computer Graphics for A.Y. 2018-2019 </span>
+        <span style="margin-top: 1rem;"> Technologies Used: </span>
+        <li> Babylon JS </li>
+        <li> Webpack </li>
+        <li> NPM </li>
+        <li> HTML 5 </li>
 
+        <span style="margin-top: 1rem;"> Developers: </span>
+        <li> Daimler Clavel </li>
+        <li> Jericho Agustin </li>
+        <li>John Louie Matienzo </li>
+    </div>
 </div>
 <div class="backdrop-block"></div>
 <canvas id="renderCanvas" touch-action="none"></canvas>

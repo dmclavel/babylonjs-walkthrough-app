@@ -8,7 +8,7 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
 import { StandardMaterial, Texture } from "@babylonjs/core";
-import { createSomething, createChair, createStar, createTable, createBoard } from './utils/create-objects/createSomething';
+import { createSomething, createChair, createStar, createTable, createBoard, createCPU, createMonitor } from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
@@ -47,45 +47,11 @@ let material = new StandardMaterial("standard", scene);
 createMonitor(scene);
 createCPU(scene);
 
-// createStar(scene, 2, 2, 1, material);
-// createStar(scene, 0, 2, 1, material);
-// createStar(scene, 4, 2, 1, material);
-// createChair(scene, 2, 0, 1, material);
-// createTable(scene, 0, 0, 1, material);
-
-
-// showAxis(1);
-
-// createSomething(scene);
-
-createStar(scene, 2, 2, 1, material);
-createStar(scene, 0, 2, 1, material);
-createStar(scene, 4, 2, 1, material);
-
 material = new StandardMaterial("wooden", scene);
 material.diffuseTexture = new Texture("./assets/wood-texture.jpg", scene);
 
 createChair(scene, 2, 0, 1, material);
 createTable(scene, 0, 0, 1, material);
-createBoard(scene);
-
-// Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-// let sphere = Mesh.CreateSphere("sphere1", 16, 2, scene);
-
-// Move the sphere upward 1/2 its height
-// sphere.position.y = -5;
-
-// Affect a material
-// sphere.material = material;
-
-// Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-// let ground = Mesh.CreateGround("ground1", 6, 6, 2, scene);
-
-// Affect a material
-// ground.material = material;
-let sphere = Mesh.CreateSphere("sphere1", 50, 2, scene);
-	sphere.position.y = 2;
-	sphere.material = material;
 
 const renderPhysci = function(){
 	// Hallway
@@ -204,7 +170,7 @@ const renderPhysci = function(){
 	B_wall_9.position = { x:130,y:75,z:-75 }
 	let B_wall_10 = MeshBuilder.CreateBox('B_wall_9',{ height:150,width:1,depth:50})
 	B_wall_10.position = { x:350,y:75,z:-75 }
-}
+};
 
 renderPhysci();
 
