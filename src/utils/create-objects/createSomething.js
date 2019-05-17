@@ -99,3 +99,21 @@ export const createTable = (scene, positionX, positionY, positionZ, material) =>
     mergedChairMeshes.position.z = positionZ;
     mergedChairMeshes.material = material;
 };
+
+export const createBoard = (scene, positionX, positionY, positionZ, material) => {
+    const board = Mesh.CreatePolygon("rectangle",
+        [
+            new Vector3(-1, 1, 1),
+            new Vector3(-1, 0, 1),
+            new Vector3(2, 1, 1),
+            new Vector3(2, 0, 1),
+        ]
+    , scene);
+
+    // board.position.x = -1;
+    // board.material = material;
+    // const board = MeshBuilder.CreateBox("board", {height: 0.05, width: 2, depth: 2, updatable: true, sideOrientation: Mesh.FRONTSIDE});
+
+    board.position.x = -2;
+    board.position.y = 2;
+};
