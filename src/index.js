@@ -7,8 +7,8 @@ import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 
 import { GridMaterial } from "@babylonjs/materials/grid";
-import { StandardMaterial, Texture } from "@babylonjs/core";
-import { createSomething, createChair, createStar, createTable, createBoard, createCPU, createMonitor } from './utils/create-objects/createSomething';
+import {Color3, StandardMaterial, Texture} from "@babylonjs/core";
+import { createSomething, createChair, createStar, createTable, quickTreeGenerator, createBoard, createCPU, createMonitor } from './utils/create-objects/createSomething';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
 import "@babylonjs/core/Meshes/meshBuilder";
@@ -43,15 +43,29 @@ light.intensity = 0.9;
 // Create a grid material
 let material = new StandardMaterial("standard", scene);
 
-
-createMonitor(scene);
-createCPU(scene);
-
 material = new StandardMaterial("wooden", scene);
 material.diffuseTexture = new Texture("./assets/wood-texture.jpg", scene);
 
-createChair(scene, 2, 0, 1, material);
-createTable(scene, 0, 0, 1, material);
+createChair(scene, 10, 0, 1, material);
+createChair(scene, 25, 0, 1, material);
+createChair(scene, 40, 0, 1, material);
+createChair(scene, 55, 0, 1, material);
+createChair(scene, 10, 0, 10, material);
+createChair(scene, 25, 0, 10, material);
+createChair(scene, 40, 0, 10, material);
+createChair(scene, 55, 0, 10, material);
+createTable(scene, 130, 4, 25, material);
+createTable(scene, 130, 4, 40, material);
+createTable(scene, 130, 4, 10, material);
+createTable(scene, 150, 4, 10, material);
+createTable(scene, 150, 4, 25, material);
+createTable(scene, 150, 4, 40, material);
+createTable(scene, 170, 4, 25, material);
+createTable(scene, 170, 4, 10, material);
+createTable(scene, 170, 4, 40, material);
+createTable(scene, 190, 4, 25, material);
+createTable(scene, 190, 4, 10, material);
+createTable(scene, 190, 4, 40, material);
 
 const renderPhysci = function(){
 	// Hallway
