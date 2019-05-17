@@ -1,5 +1,5 @@
 
-import { Vector2, PolygonMeshBuilder, Path2, Color3, Mesh, MeshBuilder, Vector3, DynamicTexture, StandardMaterial, Texture, Vector4, Color4 } from '@babylonjs/core';
+import { Vector2, PolygonMeshBuilder, Path2, Color3, Mesh, MeshBuilder, Vector3, DynamicTexture, StandardMaterial, Texture, Vector4, Color4, VertexBuffer } from '@babylonjs/core';
 
 export const createSomething = ( scene ) => {
     const  corners = [ new Vector2(4, -4),
@@ -104,15 +104,13 @@ export const createMonitor = (scene, positionX, positionY, positionZ) => {
 
     var faceUV = new Array(6);
     for (let i=0;i<6;i++){
-        faceUV[1] = new Color4(0,0,0,0);
+        faceUV[i] = new Vector4(0,0,0,0);
 
     }
-    
+    faceUV[0] = new Vector4(0,0,0,0);
     // console.log(__metadata.name)
     var screen = MeshBuilder.CreateBox("screen",{width: 8,height:0.2,depth:12, faceUV: faceUV}, scene);
-    screen.position.y -=0.5+positionY;
-    screen.position.z =positionZ;
-    screen.position.x =positionX;
+    screen.position.y -=0.5;
 
     screen.material = mat;
     var back = MeshBuilder.CreateBox("back",{width: 7,height:0.7,depth:8}, scene)
@@ -125,6 +123,12 @@ export const createMonitor = (scene, positionX, positionY, positionZ) => {
     base.position.x+=7;
     // mat2.diffuseColor = new Color4(0.5,0.5,0.5, 1);
     base.material = mat2;
+
+    const mergedMonitorMeshes = Mesh.MergeMeshes([polygon, screen,back, neck, base]);
+    mergedMonitorMeshes.rotate(new Vector3(0,0,1),-1.5);
+    mergedMonitorMeshes.position.x = positionX;
+    mergedMonitorMeshes.position.y = positionY;
+    mergedMonitorMeshes.position.z = positionZ;
 };
 
 export const createCPU = (scene) => {

@@ -44,7 +44,7 @@ light.intensity = 0.9;
 let material = new StandardMaterial("standard", scene);
 
 
-createMonitor(scene);
+createMonitor(scene, 0,10,0);
 createCPU(scene);
 
 material = new StandardMaterial("wooden", scene);
