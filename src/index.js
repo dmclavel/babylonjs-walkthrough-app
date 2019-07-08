@@ -43,6 +43,9 @@ light.intensity = 0.9;
 // Create a grid material
 let material = new StandardMaterial("standard", scene);
 
+createMonitor(scene, 0,10,0);
+createCPU(scene);
+
 material = new StandardMaterial("wooden", scene);
 material.diffuseTexture = new Texture("./assets/wood-texture.jpg", scene);
 
